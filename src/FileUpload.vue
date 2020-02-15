@@ -69,7 +69,7 @@ export default {
         this.$emit("error", {
           code: "max_size_exceded",
           message: `ไฟล์มีขนาดใหญ่เกินไป ต้อใีขนาดไม่เกิน ${this.maxSize /
-            Math.pow(1024, 1)} mb`
+            Math.pow(1024, 2)} mb`
         });
         return;
       }
