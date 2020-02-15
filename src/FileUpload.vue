@@ -4,7 +4,7 @@
     .thumb-preview-item
       img(:src='thumbUrl(anexo)')
   .input-wrapper(:style='inputWrapperStyle')
-    input.file-upload-input(:id='fileUploadInputName' type='file', name='file', @change='onChangeInputFile', :accept='accept', :multiple='false', :disabled='uploading', ref='input')
+    input.file-upload-input(:id='fileUploadInputName' type='file', name='image', @change='onChangeInputFile', :accept='accept', :multiple='false', :disabled='uploading', ref='input')
     label.file-upload-label(:for='fileUploadInputName')
       span.file-upload-icon(:class="{'file-upload-icon-pulse': uploading}") &#x21EA;
       div {{ uploading ? btnUploadingLabel : btnLabel }}
@@ -68,7 +68,7 @@ export default {
       if (file.size > this.maxSize) {
         this.$emit('error', {
           code: 'max_size_exceded',
-          message: `File max size exceded, upload a file smaller than ${this
+          message: `ไฟล์มีขนาดใหญ่เกินไป ต้อใีขนาดไม่เกิน ${this
             .maxSize}`
         })
         return
