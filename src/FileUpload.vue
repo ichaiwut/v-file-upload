@@ -25,8 +25,8 @@ export default {
         return {};
       }
     },
-    btnLabel: { type: String, default: "เลือกรูปภาพ หรือลากมาที่นี่" },
-    btnUploadingLabel: { type: String, default: "กำลังอัพโหลดรูแ" },
+    btnLabel: { type: String, default: "เลือกไฟล์ หรือลากมาที่นี่" },
+    btnUploadingLabel: { type: String, default: "กำลังอัพโหลดไฟล์" },
     maxSize: { type: Number, default: 15728640 }, // 15Mb
     additionalData: {
       type: Object,
@@ -68,7 +68,8 @@ export default {
       if (file.size > this.maxSize) {
         this.$emit("error", {
           code: "max_size_exceded",
-          message: `ไฟล์มีขนาดใหญ่เกินไป ต้อใีขนาดไม่เกิน ${this.maxSize}`
+          message: `ไฟล์มีขนาดใหญ่เกินไป ต้อใีขนาดไม่เกิน ${this.maxSize /
+            Math.pow(1024, 1)} mb`
         });
         return;
       }
