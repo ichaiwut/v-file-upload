@@ -68,7 +68,7 @@ export default {
       if (file.size > this.maxSize) {
         this.$emit("error", {
           code: "max_size_exceded",
-          message: `ไฟล์มีขนาดใหญ่เกินไป ต้อใีขนาดไม่เกิน ${this.maxSize /
+          message: `ไฟล์มีขนาดใหญ่เกินไป ต้องมีขนาดไม่เกิน ${this.maxSize /
             Math.pow(1024, 2)} mb`
         });
         return;
