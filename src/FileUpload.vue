@@ -12,107 +12,111 @@
 </template>
 
 <script>
-import FileUpload from './FileUpload.js'
+import FileUpload from "./FileUpload.js";
 
 export default {
   props: {
     url: { type: String, required: true },
     thumbUrl: { type: Function, default: () => {} },
-    accept: { type: String, default: '.png,.jpg' },
+    accept: { type: String, default: ".png,.jpg" },
     headers: {
       type: Object,
       default: () => {
-        return {}
+        return {};
       }
     },
-    btnLabel: { type: String, default: 'Select a file' },
-    btnUploadingLabel: { type: String, default: 'Uploading file' },
+    btnLabel: { type: String, default: "เลือกรูปภาพ หรือลากมาที่นี่" },
+    btnUploadingLabel: { type: String, default: "กำลังอัพโหลดรูแ" },
     maxSize: { type: Number, default: 15728640 }, // 15Mb
     additionalData: {
       type: Object,
       default: () => {
-        return {}
+        return {};
       }
     },
-    requestType: { type: String, default: 'POST' },
-    uniqueId: { type: String, default: '000' }
+    requestType: { type: String, default: "POST" },
+    uniqueId: { type: String, default: "000" }
   },
   data() {
     return {
       progress: 0,
       anexo: {}
-    }
+    };
   },
   computed: {
     uploading() {
-      return this.progress > 0
+      return this.progress > 0;
     },
     progressStyle() {
       return {
         width: `${this.progress}%`,
-        display: this.uploading ? 'block' : 'none'
-      }
+        display: this.uploading ? "block" : "none"
+      };
     },
     inputWrapperStyle() {
-      return { opacity: this.uploading ? '0.7' : '1' }
+      return { opacity: this.uploading ? "0.7" : "1" };
     },
     fileUploadInputName() {
-      return 'file-upload-input' + this.uniqueId
+      return "file-upload-input" + this.uniqueId;
     }
   },
   methods: {
     onChangeInputFile(e) {
-      let files = e.target.files || e.dataTransfer.files
-      if (!files.length) return
-      const file = files[0]
+      let files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      const file = files[0];
       if (file.size > this.maxSize) {
-        this.$emit('error', {
-          code: 'max_size_exceded',
-          message: `ไฟล์มีขนาดใหญ่เกินไป ต้อใีขนาดไม่เกิน ${this
-            .maxSize}`
-        })
-        return
+        this.$emit("error", {
+          code: "max_size_exceded",
+          message: `ไฟล์มีขนาดใหญ่เกินไป ต้อใีขนาดไม่เกิน ${this.maxSize}`
+        });
+        return;
       }
 
-      this.upload(file)
+      this.upload(file);
     },
 
     upload(file) {
-      this.progress = 0.1
-      let fileUpload = new FileUpload(this.url, this.headers, this.onProgress, this.requestType)
+      this.progress = 0.1;
+      let fileUpload = new FileUpload(
+        this.url,
+        this.headers,
+        this.onProgress,
+        this.requestType
+      );
       fileUpload
         .upload(file, this.additionalData)
         .then(e => {
-          this.anexo = e.target.response
-          this.onChangeAnexo()
-          this.$emit('success', e)
-          this.progress = 0
-          this.cleanInput()
+          this.anexo = e.target.response;
+          this.onChangeAnexo();
+          this.$emit("success", e);
+          this.progress = 0;
+          this.cleanInput();
         })
         .catch(e => {
-          this.$emit('error', e)
-          this.progress = 0
-          this.cleanInput()
-        })
+          this.$emit("error", e);
+          this.progress = 0;
+          this.cleanInput();
+        });
     },
 
     cleanInput() {
-      let input = this.$refs.input
+      let input = this.$refs.input;
       if (input) {
-        input.value = ''
+        input.value = "";
       }
     },
 
     onProgress(e) {
-      this.progress = parseInt(e.loaded * 100 / e.total)
-      this.$emit('progress', this.progress)
+      this.progress = parseInt((e.loaded * 100) / e.total);
+      this.$emit("progress", this.progress);
     },
 
     onChangeAnexo() {
-      this.$emit('change', this.anexo)
+      this.$emit("change", this.anexo);
     }
   }
-}
+};
 </script>
 
 <style lang="stylus">
