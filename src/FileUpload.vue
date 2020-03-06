@@ -76,9 +76,10 @@ export default {
         return;
       }
 
-      this.$emit("success", e);
-      this.viewFile(file);
-      // this.upload(file);
+      this.$emit("file", e);
+      if (isSubmitOnChange) {
+        this.upload(file);
+      }
     },
     upload(file) {
       this.progress = 0.1;
