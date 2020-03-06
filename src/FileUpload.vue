@@ -4,7 +4,7 @@
     .thumb-preview-item
       img(:src='thumbUrl(anexo)')
   .input-wrapper(:style='inputWrapperStyle')
-    input.file-upload-input(:id='fileUploadInputName' type='file', name='image', @change='onChangeInputFile', :accept='accept', :multiple='false', :disabled='uploading', ref='input')
+    input.file-upload-input(:id='fileUploadInputName' type='file', name='image', @change='onChangeInputFile', :isSubmitOnChange='isSubmitOnChange' :accept='accept', :multiple='false', :disabled='uploading', ref='input')
     label.file-upload-label(:for='fileUploadInputName')
       span.file-upload-icon(:class="{'file-upload-icon-pulse': uploading}") &#x21EA;
       div {{ uploading ? btnUploadingLabel : btnLabel }}
@@ -25,6 +25,7 @@ export default {
         return {};
       }
     },
+    isSubmitOnChange: { type: Boolean, default: true },
     btnLabel: { type: String, default: "เลือกไฟล์ หรือลากมาที่นี่" },
     btnUploadingLabel: { type: String, default: "กำลังอัพโหลดไฟล์" },
     maxSize: { type: Number, default: 15728640 }, // 15Mb
@@ -74,9 +75,10 @@ export default {
         return;
       }
 
-      this.upload(file);
+      this.$emit("success", e);
+      this.viewFile(file);
+      // this.upload(file);
     },
-
     upload(file) {
       this.progress = 0.1;
       let fileUpload = new FileUpload(
