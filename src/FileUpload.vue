@@ -4,7 +4,7 @@
     .thumb-preview-item
       img(:src='thumbUrl(anexo)')
   .input-wrapper(:style='inputWrapperStyle')
-    input.file-upload-input(:id='fileUploadInputName' type='file', name='image', @change='onChangeInputFile', :isSubmitOnChange='isSubmitOnChange' :accept='accept', :multiple='false', :disabled='uploading', ref='input')
+    input.file-upload-input(:id='fileUploadInputName' type='file', name='image', @change='onChangeInputFile', :isSubmitOnChange='isSubmitOnChange', :dataId='dataId', :accept='accept', :multiple='false', :disabled='uploading', ref='input')
     label.file-upload-label(:for='fileUploadInputName')
       span.file-upload-icon(:class="{'file-upload-icon-pulse': uploading}") &#x21EA;
       div {{ uploading ? btnUploadingLabel : btnLabel }}
@@ -35,6 +35,7 @@ export default {
         return {};
       }
     },
+    dataId: { type: Number, default: 0 },
     requestType: { type: String, default: "POST" },
     uniqueId: { type: String, default: "000" }
   },
