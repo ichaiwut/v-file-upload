@@ -77,7 +77,7 @@ export default {
       }
 
       this.$emit("file", e);
-      if (isSubmitOnChange) {
+      if (this.isSubmitOnChange) {
         this.upload(file);
       }
     },
