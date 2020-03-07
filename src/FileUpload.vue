@@ -56,7 +56,7 @@ export default {
       };
     },
     inputWrapperStyle() {
-      return { opacity: this.uploading ? "0.7" : "1" };
+      return { opacity: this.uploading ? "0.6" : "1" };
     },
     fileUploadInputName() {
       return "file-upload-input" + this.uniqueId;
