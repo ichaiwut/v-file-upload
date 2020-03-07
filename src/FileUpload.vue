@@ -25,7 +25,7 @@ export default {
         return {};
       }
     },
-    isSubmitOnChange: { type: Boolean, default: true },
+    isSubmitOnChange: { type: Boolean, default: false },
     btnLabel: { type: String, default: "เลือกไฟล์ หรือลากมาที่นี่" },
     btnUploadingLabel: { type: String, default: "กำลังอัพโหลดไฟล์" },
     maxSize: { type: Number, default: 15728640 }, // 15Mb
@@ -77,6 +77,8 @@ export default {
       }
 
       this.$emit("file", e);
+      console.log("this.isSubmitOnChange");
+      console.log(this.isSubmitOnChange);
       if (this.isSubmitOnChange) {
         this.upload(file);
       }
